@@ -1,0 +1,9 @@
+name = "Islandora Groovy"
+description = "Generates and batch loads some groovy images."
+package = Islandora Tools
+core = 7.x
+version = 7.x-dev
+dependencies[] = islandora
+dependencies[] = islandora_basic_image
+dependencies[] = islandora_batch
+
