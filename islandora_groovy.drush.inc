@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Drush hooks.
+ * Drush file for Islandora Groovy.
  */
 
 /**
@@ -13,7 +13,7 @@ function islandora_groovy_drush_command() {
 
   $items['generate_images'] = array(
     'aliases' => array('igroovy'),
-    'description' => 'Generates Islandora Groovy images and loads them into the Basic Image Collection.',
+    'description' => 'Generates some groovy images and loads them into the Islandora Basic Image Collection.',
     'drupal dependencies' => array('islandora_batch', 'islandora_basic_image'),
     'examples' => array(
       'drush igroovy',
@@ -25,7 +25,7 @@ function islandora_groovy_drush_command() {
 }
 
 function drush_islandora_groovy_generate_images() {
-  $output_dir = drupal_realpath('public://') . '/groovy';
+  $output_dir = drupal_realpath('public://') . DIRECTORY_SEPARATOR . 'groovy';
   if (!file_exists($output_dir)) {
     drupal_mkdir($output_dir);
   }
@@ -45,10 +45,11 @@ function drush_islandora_groovy_generate_images() {
       DIRECTORY_SEPARATOR . $feeling . ".jpg;  convert -size 1000x1000 xc:" .
       $details['color'] . " -pointsize 200 -fill white -gravity center -annotate +0+0 '" .
       $feeling . "' " . $output_dir . DIRECTORY_SEPARATOR . $feeling . ".jpg";
-    drush_print("Generating $feeling image...");
+    drush_print("Generating image for $feeling ...");
     exec($cmd);
 
-    drush_print("Generating $feeling MODS...");
+    // Generate corresponding MODS files.
+    drush_print("Generating MODS file for $feeling ...");
     $mods = '<?xml version="1.0"?>' . "\n";
     $mods .= '<mods xmlns="http://www.loc.gov/mods/v3" ';
     $mods .= 'xmlns:mods="http://www.loc.gov/mods/v3" ';
@@ -63,11 +64,14 @@ function drush_islandora_groovy_generate_images() {
     file_put_contents($mods_path, $mods);
   }
 
-  $batch_cmd = 'drush -v -u 1 --uri=http://localhost islandora_batch_scan_preprocess' .
+  // Finally, load 'em into Islandora.
+  $batch_cmd = 'drush -u 1 --uri=http://localhost islandora_batch_scan_preprocess' .
   $batch_cmd .= ' --namespace=islandora';
   $batch_cmd .= ' --content_models=islandora:sp_basic_image --parent=islandora:sp_basic_image_collection' .
   $batch_cmd .= ' --parent_relationship_pred=isMemberOfCollection --type=directory --target=' . $output_dir;
   exec($batch_cmd);
   $ingest_cmd = 'drush -v -u 1 --uri=http://localhost islandora_batch_ingest';
   exec($ingest_cmd);
+
+  drush_print("Your groovy images have been loaded. Peace out."); 
 }
