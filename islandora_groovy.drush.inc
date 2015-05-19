@@ -59,6 +59,7 @@ function drush_islandora_groovy_generate_images() {
     $mods .= '<originInfo><dateIssued encoding="iso8601" keyDate="yes">1966</dateIssued></originInfo>';
     $mods .= '<typeOfResource>still image</typeOfResource>';
     $mods .= '<abstract>' . $details['desc'] . '</abstract>';
+    $mods .= '<accessCondition>Possessions are evil.</accessCondition>';
     $mods .= '</mods>';
     $mods_path = $output_dir .  DIRECTORY_SEPARATOR . $feeling . '.xml';
     file_put_contents($mods_path, $mods);
