@@ -4,6 +4,8 @@ Drush script that generates some groovy images and then batch loads them into Is
 
 ![Groovy image thumbnails](https://dl.dropboxusercontent.com/u/1015702/linked_to/islandora_groovy.png)
 
+If you click on the thumbnail, then the preview version, then the fullsize version, it's kind of hypnotic. Like a lava lamp.
+
 ## Prerequisites
 
 * Islandora
@@ -13,8 +15,6 @@ Drush script that generates some groovy images and then batch loads them into Is
 ## Usage
 
 ```drush igroovy```
-
-If you click on the thumbnail, then the preview version, then the fullsize version, it's kind of hypnotic. Like a lava lamp.
 
 ## Licenses
 
