@@ -15,3 +15,7 @@ Drush script that generates some groovy images and then batch loads them into Is
 ```drush igroovy```
 
 If you click on the thumbnail, then the preview version, then the fullsize version, it's kind of hypnotic. Like a lava lamp.
+
+## Licenses
+
+Dual licensed under the [Unlicense](http://unlicense.org/) and [GPLv3](http://www.gnu.org/licenses/gpl-3.0.txt). Possessions are evil.
