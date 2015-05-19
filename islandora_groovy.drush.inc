@@ -58,16 +58,16 @@ function drush_islandora_groovy_generate_images() {
     $mods .= '<titleInfo><title>' . $feeling .'</title></titleInfo>';
     $mods .= '<originInfo><dateIssued encoding="iso8601" keyDate="yes">1966</dateIssued></originInfo>';
     $mods .= '<typeOfResource>still image</typeOfResource>';
-    $mods .= "<abstract>" . $details['desc'] . "</abstract>\n";
+    $mods .= '<abstract>' . $details['desc'] . '</abstract>';
     $mods .= '</mods>';
     $mods_path = $output_dir .  DIRECTORY_SEPARATOR . $feeling . '.xml';
     file_put_contents($mods_path, $mods);
   }
 
   // Finally, load 'em into Islandora.
-  $batch_cmd = 'drush -u 1 --uri=http://localhost islandora_batch_scan_preprocess' .
+  $batch_cmd = 'drush -u 1 --uri=http://localhost islandora_batch_scan_preprocess';
   $batch_cmd .= ' --namespace=islandora';
-  $batch_cmd .= ' --content_models=islandora:sp_basic_image --parent=islandora:sp_basic_image_collection' .
+  $batch_cmd .= ' --content_models=islandora:sp_basic_image --parent=islandora:sp_basic_image_collection';
   $batch_cmd .= ' --parent_relationship_pred=isMemberOfCollection --type=directory --target=' . $output_dir;
   exec($batch_cmd);
   $ingest_cmd = 'drush -u 1 --uri=http://localhost islandora_batch_ingest';
