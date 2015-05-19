@@ -45,7 +45,7 @@ function drush_islandora_groovy_generate_images() {
       DIRECTORY_SEPARATOR . $feeling . ".jpg;  convert -size 1000x1000 xc:" .
       $details['color'] . " -pointsize 200 -fill white -gravity center -annotate +0+0 '" .
       $feeling . "' " . $output_dir . DIRECTORY_SEPARATOR . $feeling . ".jpg";
-    drush_print("Generating image for $feeling ...");
+    drush_print("Generating OBJ file for $feeling ...");
     exec($cmd);
 
     // Generate corresponding MODS files.
@@ -63,6 +63,8 @@ function drush_islandora_groovy_generate_images() {
     $mods_path = $output_dir .  DIRECTORY_SEPARATOR . $feeling . '.xml';
     file_put_contents($mods_path, $mods);
   }
+
+  drush_print("Ingesting objects and creating derivatives. Stay cool, this can take a minute."); 
 
   // Finally, load 'em into Islandora.
   $batch_cmd = 'drush -u 1 --uri=http://localhost islandora_batch_scan_preprocess';
