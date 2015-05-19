@@ -36,7 +36,7 @@ function drush_islandora_groovy_generate_images() {
     'kindness' => array('color' => 'blue', 'desc' => 'Karma baby.'),
     'harmony' => array('color' => 'green', 'desc' => 'Nature is groovy.'),
     'warmth' => array('color' => 'purple', 'desc' => 'Feel the sunshine.'),
-    'energy' => array('color' => 'black', 'desc' => 'The universe is energy.'),
+    'energy' => array('color' => 'orange', 'desc' => 'Let the energy flow through you.'),
   );
 
   foreach ($feelings as $feeling => $details) {
@@ -50,14 +50,14 @@ function drush_islandora_groovy_generate_images() {
 
     // Generate corresponding MODS files.
     drush_print("Generating MODS file for $feeling ...");
-    $mods = '<?xml version="1.0"?>' . "\n";
+    $mods = '<?xml version="1.0"?>';
     $mods .= '<mods xmlns="http://www.loc.gov/mods/v3" ';
     $mods .= 'xmlns:mods="http://www.loc.gov/mods/v3" ';
     $mods .= 'xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ';
-    $mods .= 'xmlns:xlink="http://www.w3.org/1999/xlink">' ."\n";
-    $mods .= "<titleInfo>\n<title>" . $feeling ."</title\n></titleInfo>";
-    $mods .= '<originInfo><dateIssued encoding="iso8601" keyDate="yes">1966</dateIssued></originInfo>' . "\n";
-    $mods .= '<typeOfResource>still image</typeOfResource>' . "\n";
+    $mods .= 'xmlns:xlink="http://www.w3.org/1999/xlink">';
+    $mods .= '<titleInfo><title>' . $feeling .'</title></titleInfo>';
+    $mods .= '<originInfo><dateIssued encoding="iso8601" keyDate="yes">1966</dateIssued></originInfo>';
+    $mods .= '<typeOfResource>still image</typeOfResource>';
     $mods .= "<abstract>" . $details['desc'] . "</abstract>\n";
     $mods .= '</mods>';
     $mods_path = $output_dir .  DIRECTORY_SEPARATOR . $feeling . '.xml';
@@ -70,7 +70,7 @@ function drush_islandora_groovy_generate_images() {
   $batch_cmd .= ' --content_models=islandora:sp_basic_image --parent=islandora:sp_basic_image_collection' .
   $batch_cmd .= ' --parent_relationship_pred=isMemberOfCollection --type=directory --target=' . $output_dir;
   exec($batch_cmd);
-  $ingest_cmd = 'drush -v -u 1 --uri=http://localhost islandora_batch_ingest';
+  $ingest_cmd = 'drush -u 1 --uri=http://localhost islandora_batch_ingest';
   exec($ingest_cmd);
 
   drush_print("Your groovy images have been loaded. Peace out."); 
