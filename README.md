@@ -6,6 +6,8 @@ Drush script that generates some groovy images and then batch loads them into Is
 
 If you click on the thumbnail, then the preview version, then the fullsize version, it's kind of hypnotic. Like a lava lamp.
 
+If you're a square and Islandora Groovy is not your scene, check out the [Islandora Sample Content Generator](https://github.com/mjordan/islandora_scg).
+
 ## Prerequisites
 
 * Islandora
